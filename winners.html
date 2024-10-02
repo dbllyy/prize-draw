@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Pemenang</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Tambahkan jsPDF dan autoTable dari CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Daftar Pemenang</h1>
+        <table id="winnerTable">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nomor Pemenang</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Pemenang akan ditampilkan di sini -->
+            </tbody>
+        </table>
+        <button id="clearWinners">Bersihkan Daftar Pemenang</button>
+
+        <!-- Tombol untuk kembali ke halaman utama -->
+        <a href="index.html" id="backToMain" class="button">Kembali</a>
+        
+        <!-- Tombol untuk export PDF -->
+        <button id="exportPDF">Export to PDF</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const winnersList = JSON.parse(localStorage.getItem("winners")) || [];
+            const winnerTableBody = document.querySelector("#winnerTable tbody");
+
+            // Populate table with winners
+            winnersList.forEach((winner, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${winner.number}</td>
+                `;
+                winnerTableBody.appendChild(row);
+            });
+
+            // Clear winners button
+            document.getElementById("clearWinners").addEventListener("click", () => {
+                localStorage.removeItem("winners");
+                location.reload(); // Refresh the page to clear the table
+            });
+
+            // Export to PDF with AutoTable
+            document.getElementById("exportPDF").addEventListener("click", () => {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+
+                // Add title
+                doc.setFontSize(18);
+                doc.text("Daftar Pemenang", 105, 20, null, null, "center");
+
+                // Create AutoTable data format
+                const tableColumn = ["No", "Nomor Pemenang"];
+                const tableRows = [];
+
+                winnersList.forEach((winner, index) => {
+                    const winnerData = [
+                        index + 1, // Nomor urut
+                        winner.number // Nomor pemenang
+                    ];
+                    tableRows.push(winnerData);
+                });
+
+                // Generate the table with AutoTable
+                doc.autoTable({
+                    head: [tableColumn],
+                    body: tableRows,
+                    startY: 30, // Posisi mulai tabel
+                    theme: 'grid', // Tema grid agar tampak seperti Excel
+                    headStyles: { fillColor: [22, 160, 133] }, // Warna header hijau
+                    margin: { top: 10 },
+                    styles: {
+                        halign: 'center', // Align text to center
+                        valign: 'middle', // Vertikal align ke tengah
+                        fontSize: 12, // Ukuran font
+                        cellPadding: 5, // Padding di dalam cell
+                    },
+                });
+
+                // Save the PDF
+                doc.save("daftar-pemenang.pdf");
+            });
+        });
+    </script>
+</body>
+</html>

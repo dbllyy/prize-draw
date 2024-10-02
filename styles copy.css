@@ -91,7 +91,7 @@ button {
     padding: 10px 15px;
     border-radius: 5px;
     cursor: pointer;
-    margin: 20px; /* Margin di kiri dan kanan */
+    margin: 0 5px; /* Margin di kiri dan kanan */
     transition: background-color 0.3s, transform 0.2s; /* Animasi pada hover */
     font-size: 1.2rem; /* Ukuran font tombol lebih besar */
 }
@@ -105,44 +105,3 @@ button:hover:not(:disabled) {
     background-color: #3498db;
     transform: scale(1.05); /* Sedikit membesar saat hover */
 }
-
-#winner-table-container {
-    margin-top: 20px;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-th, td {
-    border: 1px solid #2980b9;
-    padding: 10px;
-    text-align: center;
-}
-
-th {
-    background-color: #2980b9;
-    color: white;
-}
-
-td {
-    background-color: #f9f9f9;
-}
-
-a.button {
-    display: inline-block;
-    background-color: #2980b9;
-    color: white;
-    text-decoration: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    margin: 10px 5px;
-    transition: background-color 0.3s;
-}
-
-a.button:hover {
-    background-color: #3498db;
-}
-
