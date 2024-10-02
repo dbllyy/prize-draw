@@ -1,5 +1,5 @@
-let winnerCount = 0;
-let totalBoxes = 10; // Total number of boxes
+let winnerCount = 1;
+const totalBoxes = 10; // Total number of boxes
 let drawnNumbers = [];
 let interval;
 
@@ -20,13 +20,17 @@ document.addEventListener("DOMContentLoaded", () => {
         boxesContainer.appendChild(box);
     }
 
+    // Handle increase button
     increaseButton.addEventListener('click', () => {
-        winnerCount++;
-        winnerCountDisplay.textContent = winnerCount;
+        if (winnerCount < 10) { // Limit to max 10 winners
+            winnerCount++;
+            winnerCountDisplay.textContent = winnerCount;
+        }
     });
 
+    // Handle decrease button
     decreaseButton.addEventListener('click', () => {
-        if (winnerCount > 0) {
+        if (winnerCount > 1) { // Limit to min 1 winner
             winnerCount--;
             winnerCountDisplay.textContent = winnerCount;
         }
@@ -43,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const randomNum = Math.floor(Math.random() * 9999) + 1; // Random number between 1-9999
                 document.getElementById(`box-${i}`).textContent = randomNum.toString().padStart(5, '0'); // Pad to 5 digits
             }
-        }, 200); // Update every 200ms
+        }, 100); // Update every 100ms for smoother animation
     });
 
     stopButton.addEventListener('click', () => {
@@ -54,18 +58,26 @@ document.addEventListener("DOMContentLoaded", () => {
         // Reset all boxes to '00000' initially
         for (let i = 0; i < totalBoxes; i++) {
             document.getElementById(`box-${i}`).textContent = '00000';
+            document.getElementById(`box-${i}`).classList.remove('winner'); // Remove winner class
         }
 
         // Draw final numbers
         drawnNumbers = [];
+        let selectedBoxes = [];
+
         while (drawnNumbers.length < winnerCount) {
             let randomNum;
             do {
                 randomNum = Math.floor(Math.random() * totalBoxes);
-            } while (drawnNumbers.includes(randomNum));
+            } while (drawnNumbers.includes(randomNum) || selectedBoxes.includes(randomNum)); // Avoid duplicates
             drawnNumbers.push(randomNum);
-            const finalNum = Math.floor(Math.random() * 9999) + 1; // Final drawn number between 1-9999
-            document.getElementById(`box-${randomNum}`).textContent = finalNum.toString().padStart(5, '0'); // Show the final drawn number
+            selectedBoxes.push(randomNum); // Add to selected boxes
+
+            // Random number between 1-9999
+            const finalNum = Math.floor(Math.random() * 9999) + 1; 
+            const winningBox = document.getElementById(`box-${randomNum}`);
+            winningBox.textContent = finalNum.toString().padStart(5, '0'); // Show the final drawn number
+            winningBox.classList.add('winner'); // Highlight the winning box
         }
     });
 });

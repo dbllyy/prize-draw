@@ -3,29 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>Undian</title>
+    <title>Lucky Draw</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link ke file CSS -->
 </head>
-<style>
-</style>
 <body>
     <div class="container">
-        <h1>IMAGE</h1>
-        <div class="winner-count">
-            <label>Jumlah Pemenang:</label>
+        <h1>Lucky Draw</h1>
+        <div>
+            <span>Jumlah Pemenang: 
             <button id="decrease">-</button>
-            <span id="winnerCount">0</span>
+            <span id="winnerCount">1</span></span>
             <button id="increase">+</button>
         </div>
-        <div class="boxes" id="boxes">
-            <!-- Boxes will be dynamically generated -->
-        </div>
-        <div class="buttons">
-            <button id="start">Start</button>
-            <button id="stop" disabled>Stop</button>
-        </div>
+        
+        <div id="boxes" class="boxes"></div>
+        <button id="start">Start</button>
+        <button id="stop" disabled>Stop</button>
     </div>
 
-    <script src="script.js"></script>
+    <script src="script.js"></script> <!-- Link ke file JavaScript -->
 </body>
 </html>
