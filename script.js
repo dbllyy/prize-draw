@@ -82,6 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
             drawnNumbers.push(randomNum);
             selectedBoxes.push(randomNum); // Add to selected boxes
     
+
             // Random number between 1-10000
             const finalNum = Math.floor(Math.random() * 10000) + 1; 
             const winningBox = document.getElementById(`box-${randomNum}`);
