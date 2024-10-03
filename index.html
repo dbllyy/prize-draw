@@ -4,32 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lucky Draw</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Link ke file CSS -->
+    <link rel="stylesheet" href="styles.css"> <!-- Link to CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
     <div class="container">
-        <h1>Lucky Draw</h1>
-        <div>
-
-            <!-- TAMBAH MIN-MAX -->
-             <!-- TAMBAH FIELD PEMENANG HADIAH -->
-        
-            <span>Jumlah Pemenang: 
-            <button id="decrease">-</button>
-            <span id="winnerCount">1</span></span>
-            <button id="increase">+</button>
+        <h1 class="text-center my-4">Lucky Draw</h1>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <h4>Maksimal Nomor yang Ditarik (1-10000):</h4>
+                    <input type="number" id="maxValue" class="form-control" min="1" max="10000" value="10000" step="1">
+                    
+                    <h4 class="mt-3">Jumlah Pemenang:</h4>
+                    <div class="d-flex justify-content-between">
+                        <button id="decrease" class="btn btn-danger">-</button>
+                        <span id="winnerCount" class="mx-3">1</span>
+                        <button id="increase" class="btn btn-success">+</button>
+                    </div>
+                    
+                    <button id="start" class="btn btn-primary mt-3">Start</button>
+                    <button id="stop" class="btn btn-secondary mt-3" disabled>Stop</button>
+                    <a href="winners.html" id="viewWinners" class="btn btn-info mt-3">Lihat Daftar Pemenang</a>
+                </div>
+            </div>
+            
+            <div class="col-md-8">
+                <div id="boxes" class="boxes d-flex flex-wrap justify-content-start"></div>
+            </div>
         </div>
-        
-        <div id="boxes" class="boxes"></div>
-        <button id="start">Start</button>
-        <button id="stop" disabled>Stop</button>
-
-        <!-- Tombol menuju halaman daftar pemenang -->
-        <a href="winners.html" id="viewWinners" class="button">Lihat Daftar Pemenang</a>
-
     </div>
 
-    <script src="script.js"></script> <!-- Link ke file JavaScript -->
+    <script src="script.js"></script> <!-- Link to JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
-

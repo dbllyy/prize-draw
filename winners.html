@@ -4,10 +4,83 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daftar Pemenang</title>
-    <link rel="stylesheet" href="styles.css">
-    <!-- Tambahkan jsPDF dan autoTable dari CDN -->
+    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #22a1b0; /* Header color */
+            color: white;
+        }
+
+        button, .button {
+            display: inline-block;
+            padding: 10px 15px;
+            margin: 5px;
+            color: white;
+            background-color: #007bff; /* Default button color */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        button:hover, .button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+        
+        #clearWinners {
+            background-color: #dc3545; /* Red for clear button */
+        }
+
+        #clearWinners:hover {
+            background-color: #c82333; /* Darker red on hover */
+        }
+
+        #backToMain {
+            background-color: #28a745; /* Green for back button */
+        }
+
+        #backToMain:hover {
+            background-color: #218838; /* Darker green on hover */
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -24,11 +97,7 @@
             </tbody>
         </table>
         <button id="clearWinners">Bersihkan Daftar Pemenang</button>
-
-        <!-- Tombol untuk kembali ke halaman utama -->
         <a href="index.html" id="backToMain" class="button">Kembali</a>
-        
-        <!-- Tombol untuk export PDF -->
         <button id="exportPDF">Export to PDF</button>
     </div>
 
@@ -50,7 +119,7 @@
             // Clear winners button
             document.getElementById("clearWinners").addEventListener("click", () => {
                 localStorage.removeItem("winners");
-                location.reload(); // Refresh the page to clear the table
+                winnerTableBody.innerHTML = ''; // Clear table immediately
             });
 
             // Export to PDF with AutoTable
