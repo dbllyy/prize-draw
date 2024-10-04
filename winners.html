@@ -90,6 +90,7 @@
                 <tr>
                     <th>No</th>
                     <th>Nomor Pemenang</th>
+                    <th>Hadiah</th>
                 </tr>
             </thead>
             <tbody>
@@ -105,44 +106,54 @@
         document.addEventListener('DOMContentLoaded', () => {
             const winnersList = JSON.parse(localStorage.getItem("winners")) || [];
             const winnerTableBody = document.querySelector("#winnerTable tbody");
-
-            // Populate table with winners
-            winnersList.forEach((winner, index) => {
+    
+            // Populate table with winners and their prizes
+            if (winnersList.length > 0) {
+                winnersList.forEach((winner) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${winnerTableBody.children.length + 1}</td> <!-- Dynamically calculate the number -->
+                        <td>${winner.number}</td>
+                        <td>${winner.prize || 'N/A'}</td> <!-- Add prize data or N/A if no prize -->
+                    `;
+                    winnerTableBody.appendChild(row);
+                });
+            } else {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td>${index + 1}</td>
-                    <td>${winner.number}</td>
+                    <td colspan="3">Tidak ada pemenang</td> <!-- Message for no winners -->
                 `;
                 winnerTableBody.appendChild(row);
-            });
-
+            }
+    
             // Clear winners button
             document.getElementById("clearWinners").addEventListener("click", () => {
                 localStorage.removeItem("winners");
                 winnerTableBody.innerHTML = ''; // Clear table immediately
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td colspan="3">Tidak ada pemenang</td> <!-- Reset message -->
+                `;
+                winnerTableBody.appendChild(row);
             });
-
+    
             // Export to PDF with AutoTable
             document.getElementById("exportPDF").addEventListener("click", () => {
                 const { jsPDF } = window.jspdf;
                 const doc = new jsPDF();
-
+    
                 // Add title
                 doc.setFontSize(18);
                 doc.text("Daftar Pemenang", 105, 20, null, null, "center");
-
-                // Create AutoTable data format
-                const tableColumn = ["No", "Nomor Pemenang"];
-                const tableRows = [];
-
-                winnersList.forEach((winner, index) => {
-                    const winnerData = [
-                        index + 1, // Nomor urut
-                        winner.number // Nomor pemenang
-                    ];
-                    tableRows.push(winnerData);
-                });
-
+    
+                // Create AutoTable data format with prize column
+                const tableColumn = ["No", "Nomor Pemenang", "Hadiah"];
+                const tableRows = winnersList.map((winner, index) => [
+                    index + 1,           // Nomor urut
+                    winner.number,       // Nomor pemenang
+                    winner.prize || 'N/A' // Prize
+                ]);
+    
                 // Generate the table with AutoTable
                 doc.autoTable({
                     head: [tableColumn],
@@ -158,7 +169,7 @@
                         cellPadding: 5, // Padding di dalam cell
                     },
                 });
-
+    
                 // Save the PDF
                 doc.save("daftar-pemenang.pdf");
             });
