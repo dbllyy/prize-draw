@@ -1,46 +1,107 @@
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f0f2f5;
     margin: 0;
-    padding: 20px;
-    color: #333;
+	padding: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	font-family: 'Jost', sans-serif; /* Ensure this font is available in fonts.css */
+	background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
 }
 
 .container {
-    max-width: 1000px; /* Ensure it fits on desktop */
+    max-width: 1000px;
+    margin: 0 auto; /* Center the container */
 }
 
-h1 {
-    color: #2c3e50;
+h1{
+    color: #ffffff;
     font-weight: 600;
     letter-spacing: 1px;
+    text-align: center;
+}
+
+h4 {
+    color: #ffffff;
+  
 }
 
 .boxes {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     flex-wrap: wrap;
     margin-top: 20px;
     gap: 12px;
 }
 
-.box {
+/* .box {
     width: 110px;
     height: 110px;
-    border: 2px solid #007bff;
-    display: inline-block;
+    border: 2px solid #003d7e;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     font-size: 2.5rem;
-    line-height: 110px;
     margin: 6px;
     border-radius: 15px;
-    transition: background-color 0.5s ease, transform 0.3s;
+    transition: background-color 0.3s ease, transform 0.3s ease;
     color: #007bff;
-    background-color: white;
+    background-color: #ffffff;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    cursor: pointer; /* Add cursor pointer for interactivity */
+
+
+.box {
+    width: 150px; /* Sesuaikan lebar box */
+    height: 140px; /* Sesuaikan tinggi box */
+    border: 2px solid #003d7e;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    margin: 6px;
+    border-radius: 15px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    color: #007bff;
+    background-color: #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    cursor: pointer; /* Add cursor pointer for interactivity */
+}
+
+
+.box:hover {
+    background-color: #e6f2ff; /* Light blue on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
 }
 
 .box.winner {
     background-color: #28a745;
-    color: white;
+    color: #ffffff;
+    border-color: #28a745;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.box.winner:hover {
+    background-color: #218838; /* Darker green on hover */
+    transform: scale(1.1); /* Increase hover scale for winner box */
+}
+
+.card {
+    width: 350px;
+    height: 500px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background: linear-gradient(to bottom, #6e699e, #302b63, #3b3b68)!important;
+    background-clip: border-box;
+    border: 1px solid rgba(247, 0, 0, 0.125); /* Light border */
+    border-radius: 10px; /* Rounded corners */
+    overflow: hidden;
+    box-shadow: 5px 20px 50px rgba(34, 33, 68, 0.5); /* Soft shadow */
+}
+
+.mx-3 {
+    color: #ffffff!important;
 }
